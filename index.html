@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Google Play Apps List</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #9aa4b2;
+      --accent: #2dd4bf;
+      --glass: rgba(255,255,255,0.03);
+    }
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{background:linear-gradient(180deg,#071025 0%, #071927 100%);color:#e6eef6;padding:20px;box-sizing:border-box}
+    .wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:360px 1fr;gap:20px}
+    .panel{background:var(--glass);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);backdrop-filter: blur(6px);}
+    h1{margin:0 0 8px;font-size:20px}
+    p.small{margin:0 0 12px;color:var(--muted);font-size:13px}
+    textarea{width:100%;height:260px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:10px;border-radius:8px;resize:vertical;font-family:monospace;font-size:13px}
+    .controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    button{background:linear-gradient(180deg,var(--accent),#06b6a4);border:none;padding:8px 10px;border-radius:8px;color:#022;cursor:pointer;font-weight:600}
+    .muted-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
+    .list-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+    input[type="search"], select{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px;color:inherit}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;gap:10px;align-items:flex-start}
+    .icon{width:64px;height:64px;border-radius:14px;background:#0b1220;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .icon img{width:100%;height:100%;object-fit:cover;display:block}
+    .meta{flex:1}
+    .title{font-weight:700;margin:0;font-size:15px}
+    .pkg{font-size:12px;color:var(--muted);margin-top:4px}
+    .desc{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.2}
+    .meta-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+    .badge{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+    .link{background:linear-gradient(180deg,#0ea5a4,#089e95);padding:6px 8px;border-radius:8px;color:#021;display:inline-block;text-decoration:none;font-weight:700}
+    .placeholder{color:var(--muted);font-size:13px;padding:18px;border-radius:8px;border:1px dashed rgba(255,255,255,0.03);text-align:center}
+    footer{color:var(--muted);font-size:13px;margin-top:16px;text-align:center}
+    /* small screens */
+    @media (max-width:880px){
+      .wrap{grid-template-columns:1fr; padding-bottom:40px}
+      textarea{height:200px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside class="panel" aria-label="input panel">
+      <h1>Apps input</h1>
+      <p class="small">Paste JSON array (or CSV-ish lines) describing your Google Play apps here and click <strong>Load apps</strong>. See sample below.</p>
+
+      <textarea id="input" spellcheck="false">
+[
+  {
+    "title": "Magic Bricks",
+    "package": "com.example.magicbricks",
+    "icon": "https://via.placeholder.com/512x512.png?text=MB",
+    "url": "https://play.google.com/store/apps/details?id=com.example.magicbricks",
+    "rating": 4.7,
+    "installs": "10,000+",
+    "price": "Free",
+    "description": "Build and share small brick models in a fun app."
+  },
+  {
+    "title": "Chess Tiny",
+    "package": "com.example.chesstiny",
+    "icon": "https://via.placeholder.com/512x512.png?text=CT",
+    "url": "https://play.google.com/store/apps/details?id=com.example.chesstiny",
+    "rating": 4.3,
+    "installs": "5,000+",
+    "price": "Free",
+    "description": "Tiny chess app for quick matches."
+  }
+]
+      </textarea>
+
+      <div class="controls">
+        <button id="loadBtn">Load apps</button>
+        <button id="clearBtn" class="muted-btn">Clear list</button>
+        <button id="downloadBtn" class="muted-btn">Download JSON</button>
+      </div>
+
+      <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+
+      <div class="list-top">
+        <input id="search" type="search" placeholder="Search title or package..." style="flex:1" />
+        <select id="sort">
+          <option value="title-asc">Sort: Title ↑</option>
+          <option value="title-desc">Title ↓</option>
+          <option value="rating-desc">Rating ↓</option>
+          <option value="rating-asc">Rating ↑</option>
+          <option value="installs-desc">Installs ↓</option>
+        </select>
+      </div>
+
+      <div style="margin-top:10px;color:var(--muted);font-size:13px">
+        Tips: You can paste Play Store URLs instead of `url` (they'll still work). If your icons are missing, a fallback icon will show.
+      </div>
+    </aside>
+
+    <main>
+      <div class="panel">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <h1 style="font-size:18px;margin-bottom:4px">Apps list</h1>
+            <div class="small" id="count">No apps loaded</div>
+          </div>
+          <div>
+            <button id="exportHtml" class="muted-btn">Copy HTML</button>
+          </div>
+        </div>
+
+        <div id="contentArea" style="margin-top:12px">
+          <div class="placeholder" id="placeholder">Load apps to see them here — grid, search, sorting included.</div>
+        </div>
+
+      </div>
+
+      <footer>
+        This page is local-only. Your app data stays in your browser unless you download or copy it.
+      </footer>
+    </main>
+  </div>
+
+<script>
+  // Helper: safe parse input text as JSON or fallback to naive line parser
+  function parseInput(text){
+    text = text.trim();
+    if(!text) return [];
+    // Try JSON
+    try {
+      const j = JSON.parse(text);
+      if(Array.isArray(j)) return j;
+      // if object with items property?
+      if(Array.isArray(j.items)) return j.items;
+    } catch(e){}
+    // Try newline-delimited "title|package|icon|url|rating|installs|price|description"
+    const lines = text.split('\\n').map(s=>s.trim()).filter(Boolean);
+    const arr = lines.map(line=>{
+      const parts = line.split('|').map(p=>p.trim());
+      return {
+        title: parts[0] || 'Untitled',
+        package: parts[1] || '',
+        icon: parts[2] || '',
+        url: parts[3] || (parts[1] ? 'https://play.google.com/store/apps/details?id='+parts[1] : ''),
+        rating: parts[4] ? Number(parts[4]) : null,
+        installs: parts[5] || '',
+        price: parts[6] || '',
+        description: parts[7] || ''
+      }
+    });
+    return arr;
+  }
+
+  // Fallback icon generator (SVG data URL with initial)
+  function fallbackIcon(title){
+    const letter = title ? title.trim()[0].toUpperCase() : '?';
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"><rect width="100%" height="100%" rx="64" fill="#0ea5a4"/><text x="50%" y="54%" font-size="220" font-family="Arial, sans-serif" fill="white" text-anchor="middle" dominant-baseline="middle">'+letter+'</text></svg>';
+    return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  }
+
+  // Render apps list
+  function renderApps(list){
+    const container = document.getElementById('contentArea');
+    const countEl = document.getElementById('count');
+    if(!list || list.length === 0){
+      container.innerHTML = '<div class="placeholder">No apps to show. Paste JSON into the left and click Load apps.</div>';
+      countEl.textContent = 'No apps loaded';
+      return;
+    }
+    countEl.textContent = list.length + (list.length===1 ? ' app' : ' apps');
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    const sort = document.getElementById('sort').value;
+
+    let filtered = list.filter(a=>{
+      if(!q) return true;
+      return (a.title && a.title.toLowerCase().includes(q)) ||
+             (a.package && a.package.toLowerCase().includes(q)) ||
+             (a.description && a.description.toLowerCase().includes(q))
+    });
+
+    const byRating = (a,b)=> (Number(b.rating||0) - Number(a.rating||0));
+    const byTitleAsc = (a,b)=> (''+ (a.title||'') ).localeCompare(b.title||'');
+    const byInstalls = (a,b)=>{
+      const pa = parseInstalls(a.installs), pb = parseInstalls(b.installs);
+      return pb - pa;
+    }
+    switch(sort){
+      case 'rating-desc': filtered.sort(byRating); break;
+      case 'rating-asc': filtered.sort((a,b)=>-byRating(a,b)); break;
+      case 'title-desc': filtered.sort((a,b)=>byTitleAsc(b,a)); break;
+      case 'title-asc': filtered.sort(byTitleAsc); break;
+      case 'installs-desc': filtered.sort(byInstalls); break;
+    }
+
+    const html = ['<div class="grid">'];
+    for(const a of filtered){
+      const title = escapeHtml(a.title || a.name || 'Untitled');
+      const pkg = escapeHtml(a.package || '');
+      const url = escapeHtml(a.url || (a.package ? 'https://play.google.com/store/apps/details?id='+a.package : '#'));
+      const rating = (a.rating !== undefined && a.rating !== null) ? a.rating : '—';
+      const installs = escapeHtml(a.installs || '');
+      const price = escapeHtml(a.price || '');
+      const desc = escapeHtml(a.description || a.shortDescription || '');
+      const icon = a.icon ? escapeAttr(a.icon) : escapeAttr(fallbackIcon(a.title));
+      html.push(`
+        <div class="card" data-package="${pkg}">
+          <div class="icon"><img src="${icon}" alt="${title} icon" onerror="this.onerror=null;this.src='${escapeAttr(fallbackIcon(a.title))}'"></div>
+          <div class="meta">
+            <div class="title">${title}</div>
+            <div class="pkg">${pkg}</div>
+            <div class="desc">${desc}</div>
+            <div class="meta-bottom">
+              <div style="display:flex;gap:8px;align-items:center">
+                <div class="badge">★ ${rating}</div>
+                <div class="badge">${installs}</div>
+                <div class="badge">${price}</div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <a class="link" href="${url}" target="_blank" rel="noopener">Open</a>
+                <button onclick="copyToClipboard('${escapeAttr(url)}')" class="muted-btn" style="padding:6px 8px">Copy URL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `)
+    }
+    html.push('</div>');
+    container.innerHTML = html.join('\\n');
+  }
+
+  // Utility helpers
+  function parseInstalls(text){
+    if(!text) return 0;
+    // Remove commas, plus, spaces
+    const n = Number(String(text).replace(/[+,\\s]/g,'').replace(/[^0-9]/g,'')) || 0;
+    return n;
+  }
+  function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);}
+  function escapeAttr(s){ return escapeHtml(s).replace(/'/g,"&#39;"); }
+
+  function copyToClipboard(text){
+    navigator.clipboard?.writeText(text).then(()=> {
+      alert('Copied to clipboard');
+    }).catch(()=> {
+      prompt('Copy manually:', text);
+    });
+  }
+
+  // Main actions
+  document.getElementById('loadBtn').addEventListener('click', ()=>{
+    const txt = document.getElementById('input').value;
+    const parsed = parseInput(txt);
+    // Normalize objects
+    const normalized = parsed.map(o=>{
+      return {
+        title: o.title || o.name || '',
+        package: o.package || o.pkg || '',
+        icon: o.icon || o.image || '',
+        url: o.url || (o.package ? 'https://play.google.com/store/apps/details?id='+o.package : ''),
+        rating: o.rating !== undefined ? o.rating : (o.score || null),
+        installs: o.installs || o.install || '',
+        price: o.price || (o.free ? 'Free' : ''),
+        description: o.description || o.shortDescription || ''
+      }
+    });
+    window.__apps = normalized;
+    renderApps(normalized);
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    window.__apps = [];
+    renderApps([]);
+  });
+
+  document.getElementById('search').addEventListener('input', ()=>{
+    renderApps(window.__apps || []);
+  });
+
+  document.getElementById('sort').addEventListener('change', ()=>{
+    renderApps(window.__apps || []);
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', ()=>{
+    const data = window.__apps || [];
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'apps-list.json'; document.body.appendChild(a);
+    a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+
+  // Export HTML snippet (copies inner HTML of the grid)
+  document.getElementById('exportHtml').addEventListener('click', ()=>{
+    const content = document.getElementById('contentArea').innerHTML;
+    const full = '<div class="apps-export">'+content+'</div>';
+    navigator.clipboard?.writeText(full).then(()=> alert('HTML snippet copied to clipboard')).catch(()=> prompt('Copy this HTML', full));
+  });
+
+  // Auto load sample at start
+  (function init(){
+    try {
+      const sampleText = document.getElementById('input').value;
+      const parsed = parseInput(sampleText);
+      window.__apps = parsed;
+      renderApps(parsed);
+    } catch(e){ console.error(e); }
+  })();
+</script>
+</body>
+</html>
