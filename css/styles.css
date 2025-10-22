@@ -120,6 +120,7 @@ main p.description {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 25px;
+  text-align: justify;
 }
 
 main .play-btn {
