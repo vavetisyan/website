@@ -88,6 +88,10 @@ footer {
   color: #555;
   font-size: 0.9rem;
   margin: 40px 0;
+
+  a {
+    color: #1e40af;
+  }
 }
 
 main {
