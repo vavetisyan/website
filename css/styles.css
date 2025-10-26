@@ -32,6 +32,11 @@ header p {
   font-size: 1.1rem;
 }
 
+.app-pages {
+  width: 90%;	
+  max-width: 1200px;
+}
+
 .app-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
