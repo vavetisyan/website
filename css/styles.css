@@ -37,6 +37,10 @@ header p {
   max-width: 1200px;
 }
 
+.app-pages a {
+  color: #1e40af;
+}
+
 .app-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -93,10 +97,10 @@ footer {
   color: #555;
   font-size: 0.9rem;
   margin: 40px 0;
+}
 
-  a {
-    color: #1e40af;
-  }
+footer a {
+  color: #1e40af;
 }
 
 main {
