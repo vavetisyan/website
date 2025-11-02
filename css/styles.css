@@ -32,15 +32,6 @@ header p {
   font-size: 1.1rem;
 }
 
-.app-pages {
-  width: 90%;	
-  max-width: 1200px;
-}
-
-.app-pages a {
-  color: #1e40af;
-}
-
 .app-item-page {
   color: #555;
   font-size: 1rem;
@@ -100,6 +91,31 @@ header p {
   margin-bottom: 12px;
 }
 
+.intro {
+  width: 90%;
+  max-width: 1200px;
+  padding: 30px 20px 60px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-left: 4px solid #1e40af;
+}
+
+.intro h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1e3a8a; /* slightly darker, elegant blue */
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.intro p {
+  font-size: 1.05rem;
+  color: #4a4a4a;
+  line-height: 1.75;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 footer {
   text-align: center;
   color: #555;
@@ -142,6 +158,14 @@ main p.description {
   line-height: 1.6;
   margin-bottom: 25px;
   text-align: justify;
+}
+
+main p.description a, main ul.description a {
+  color: #1e40af;
+}
+
+main ul.description {
+  text-align: start;
 }
 
 main .play-btn {
@@ -190,5 +214,14 @@ main .back-link:hover {
   
   main h2 {
 	font-size: 1.5rem;
+  }
+
+  .intro h2 {
+    font-size: 1.8rem;
+  }
+
+  .intro p {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }
