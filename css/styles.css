@@ -161,7 +161,7 @@ body {
   border-left: 4px solid #1e40af;
 }
 
-.intro h2 {
+.intro h1 {
   font-size: 1.6rem;
   font-weight: 700;
   color: #1e3a8a;
@@ -213,8 +213,9 @@ main .app-image {
   box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
-main h2 {
+main h1 {
   color: #1e40af;
+  font-size: 1.6rem;
   margin-bottom: 10px;
 }
 
