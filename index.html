@@ -30,14 +30,40 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6704900267332615" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-    <h1>
-      <a href="https://play.google.com/store/apps/dev?id=7523081867891936925" target="_blank">
-        Google Play Apps
-      </a>
-    </h1>
-    <p>Fresh and stylish wallpapers designed to match your mood</p>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <a href="https://play.google.com/store/apps/dev?id=7523081867891936925" target="_blank">
+          <img src="/img/preview.jpg" alt="Google Play Apps" />
+          <span>Google Play Apps</span>
+        </a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+
+      <!-- Hamburger -->
+      <div class="menu-toggle" id="menuToggle">☰</div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-nav" id="mobileNav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
   </header>
+
+  <section class="intro hero">
+    <p>Fresh and stylish wallpapers designed to match your mood</p>
+  </section>
 
   <section class="app-list">
     <a class="app-card" href="/paris/">
@@ -146,12 +172,23 @@
     </p>
   </section>
 
-  <footer>
-    © 2025 Google Play Apps |
-    <a href="/about">About</a> |
-    <a href="/contact">Contact</a> |
-    <a href="/terms">Terms</a> |
-    <a href="/privacy">Privacy Policy</a>
-  </footer>
+  <footer>© 2025 Google Play Apps</footer>
+
+  <script>
+    const btn = document.getElementById("menuToggle");
+    const nav = document.getElementById("mobileNav");
+
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      nav.classList.toggle("show");
+    };
+
+    document.addEventListener("click", (e) => {
+      // Clicked outside the menu
+      if (!nav.contains(e.target) && !btn.contains(e.target)) {
+        nav.classList.remove("show");
+      }
+    });
+  </script>
 </body>
 </html>
