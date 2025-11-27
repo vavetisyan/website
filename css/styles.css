@@ -155,13 +155,14 @@ body {
 .intro {
   width: 90%;
   max-width: 1200px;
+  margin-bottom: 40px;
   padding: 30px 20px 60px 20px;
   text-align: center;
   background-color: #ffffff;
   border-left: 4px solid #1e40af;
 }
 
-.intro h1 {
+.intro h1, .intro h2 {
   font-size: 1.6rem;
   font-weight: 700;
   color: #1e3a8a;
@@ -173,12 +174,11 @@ body {
   font-size: 1.05rem;
   color: #4a4a4a;
   line-height: 1.75;
-  max-width: 720px;
+  max-width: 920px;
   margin: 0 auto;
 }
 
 .hero {
-    margin-bottom: 40px;
     padding: 20px 0;
 }
 
@@ -186,7 +186,7 @@ footer {
   text-align: center;
   color: #555;
   font-size: 0.9rem;
-  margin: 40px 0;
+  margin-bottom: 40px;
 }
 
 footer a {
