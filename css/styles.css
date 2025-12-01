@@ -152,6 +152,18 @@ body {
   margin-bottom: 12px;
 }
 
+.app-description-purple {
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.app-description-blur {
+  background: linear-gradient(90deg, #009ffd, #2a2a72);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .intro {
   width: 90%;
   max-width: 1200px;
