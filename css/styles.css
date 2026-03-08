@@ -190,6 +190,14 @@ body {
   margin: 0 auto;
 }
 
+.intro-app-item {
+  padding: 0;
+}
+
+.intro-app-item h1 {
+  color: #1e40af;
+}
+
 .hero {
     padding: 20px 0;
 }
