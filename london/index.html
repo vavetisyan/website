@@ -115,6 +115,25 @@
     <a href="/" class="back-link">← Back to all apps</a>
   </main>
 
+  <section class="intro intro-app-item">
+    <h2>Wallpaper Preview</h2>
+  </section>
+
+  <section class="wallpaper-section">
+    <div class="wallpaper-gallery">
+      <img src="/img/london/i_1.png" alt="London Wallpaper 1" class="wallpaper-img">
+      <img src="/img/london/i_2.jpg" alt="London Wallpaper 2" class="wallpaper-img">
+      <img src="/img/london/i_3.jpg" alt="London Wallpaper 3" class="wallpaper-img">
+      <img src="/img/london/i_4.png" alt="London Wallpaper 4" class="wallpaper-img">
+      <img src="/img/london/i_5.png" alt="London Wallpaper 5" class="wallpaper-img">
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img src="" class="modal-content" id="modalImage" alt="Wallpaper Preview">
+  </div>
   <section class="intro faq-section">
     <h2>Frequently Asked Questions</h2>
 
@@ -150,10 +169,10 @@
   </section>
 
   <section class="app-list">
-    <a class="app-card" href="/paris/">
-      <img src="/img/paris.webp" alt="Paris">
-      <div class="app-name">Paris Wallpaper</div>
-      <div class="app-description">Paris in your heart, on your phone screen.</div>
+    <a class="app-card" href="/london/">
+      <img src="/img/london.webp" alt="london">
+      <div class="app-name">london Wallpaper</div>
+      <div class="app-description">london in your heart, on your phone screen.</div>
     </a>
 
     <a class="app-card" href="/rome/">
@@ -192,6 +211,28 @@
         nav.classList.remove("show");
       }
     });
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const images = document.querySelectorAll(".wallpaper-img");
+    const closeBtn = document.querySelector(".modal-close");
+
+    images.forEach(img => {
+        img.addEventListener("click", function() {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    }
   </script>
 </body>
 </html>

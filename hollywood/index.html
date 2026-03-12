@@ -116,6 +116,25 @@
     <a href="/" class="back-link">← Back to all apps</a>
   </main>
 
+  <section class="intro intro-app-item">
+    <h2>Wallpaper Preview</h2>
+  </section>
+
+  <section class="wallpaper-section">
+    <div class="wallpaper-gallery">
+      <img src="/img/hollywood/i_1.jpg" alt="Hollywood Wallpaper 1" class="wallpaper-img">
+      <img src="/img/hollywood/i_2.jpg" alt="Hollywood Wallpaper 2" class="wallpaper-img">
+      <img src="/img/hollywood/i_3.jpg" alt="Hollywood Wallpaper 3" class="wallpaper-img">
+      <img src="/img/hollywood/i_4.jpg" alt="Hollywood Wallpaper 4" class="wallpaper-img">
+      <img src="/img/hollywood/i_5.jpg" alt="Hollywood Wallpaper 5" class="wallpaper-img">
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img src="" class="modal-content" id="modalImage" alt="Wallpaper Preview">
+  </div>
   <section class="intro faq-section">
     <h2>Frequently Asked Questions</h2>
 
@@ -194,6 +213,28 @@
         nav.classList.remove("show");
       }
     });
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const images = document.querySelectorAll(".wallpaper-img");
+    const closeBtn = document.querySelector(".modal-close");
+
+    images.forEach(img => {
+        img.addEventListener("click", function() {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    }
   </script>
 </body>
 </html>

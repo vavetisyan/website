@@ -116,6 +116,25 @@
     <a href="/" class="back-link">← Back to all apps</a>
   </main>
 
+  <section class="intro intro-app-item">
+    <h2>Wallpaper Preview</h2>
+  </section>
+
+  <section class="wallpaper-section">
+    <div class="wallpaper-gallery">
+      <img src="/img/hongkong/i_1.jpg" alt="Hong Kong Wallpaper 1" class="wallpaper-img">
+      <img src="/img/hongkong/i_2.jpg" alt="Hong Kong Wallpaper 2" class="wallpaper-img">
+      <img src="/img/hongkong/i_3.jpg" alt="Hong Kong Wallpaper 3" class="wallpaper-img">
+      <img src="/img/hongkong/i_4.jpg" alt="Hong Kong Wallpaper 4" class="wallpaper-img">
+      <img src="/img/hongkong/i_5.jpg" alt="Hong Kong Wallpaper 5" class="wallpaper-img">
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img src="" class="modal-content" id="modalImage" alt="Wallpaper Preview">
+  </div>
   <section class="intro faq-section">
     <h2>Frequently Asked Questions</h2>
 
@@ -169,10 +188,10 @@
       <div class="app-description">Romantic cityscapes from the floating city.</div>
     </a>
 
-    <a class="app-card" href="/paris/">
-      <img src="/img/paris.webp" alt="Paris">
-      <div class="app-name">Paris Wallpaper</div>
-      <div class="app-description">Paris in your heart, on your phone screen.</div>
+    <a class="app-card" href="/hongkong/">
+      <img src="/img/hongkong.webp" alt="hongkong">
+      <div class="app-name">hongkong Wallpaper</div>
+      <div class="app-description">hongkong in your heart, on your phone screen.</div>
     </a>
   </section>
 
@@ -193,6 +212,28 @@
         nav.classList.remove("show");
       }
     });
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const images = document.querySelectorAll(".wallpaper-img");
+    const closeBtn = document.querySelector(".modal-close");
+
+    images.forEach(img => {
+        img.addEventListener("click", function() {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    }
   </script>
 </body>
 </html>
