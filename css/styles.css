@@ -374,6 +374,15 @@ main .back-link:hover {
   font-size: 15px;
 }
 
+.experience-section {
+  padding: 30px 40px 10px 40px;
+}
+
+.experience-section p {
+  max-width: none;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 600px) {
   header h1 {
 	font-size: 2rem;
