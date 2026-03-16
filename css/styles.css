@@ -98,7 +98,12 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   text-align:justify;
-  margin:20px auto 40px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.app-item-page:last-child {
+  margin-bottom: 0;
 }
 
 .app-list {
@@ -168,7 +173,7 @@ body {
   width: 90%;
   max-width: 1200px;
   margin-bottom: 40px;
-  padding: 30px 20px 60px 20px;
+  padding: 40px;
   text-align: center;
   background-color: #ffffff;
   border-left: 4px solid #1e40af;
@@ -178,6 +183,7 @@ body {
   font-size: 1.6rem;
   font-weight: 700;
   color: #1e3a8a;
+  margin-top: 0;
   margin-bottom: 20px;
   letter-spacing: 0.5px;
 }
@@ -186,8 +192,11 @@ body {
   font-size: 1.05rem;
   color: #4a4a4a;
   line-height: 1.75;
-  max-width: 920px;
   margin: 0 auto;
+}
+
+.intro .app-item-page p {
+  margin-bottom: 1rem;
 }
 
 .intro-app-item {
@@ -196,6 +205,10 @@ body {
 
 .intro-app-item h1 {
   color: #1e40af;
+}
+
+.intro-app-item h2 {
+  margin-top: 20px;
 }
 
 .hero {
@@ -372,15 +385,6 @@ main .back-link:hover {
 .faq-section .faq-item p {
   line-height: 1.6;
   font-size: 15px;
-}
-
-.experience-section {
-  padding: 30px 40px 10px 40px;
-}
-
-.experience-section p {
-  max-width: none;
-  margin-bottom: 1rem;
 }
 
 @media (max-width: 600px) {
