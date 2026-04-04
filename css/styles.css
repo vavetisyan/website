@@ -387,6 +387,143 @@ main .back-link:hover {
   font-size: 15px;
 }
 
+/* Blog Styles */
+.blog-article {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.blog-article h1 {
+  font-size: 2rem;
+  color: #1e40af;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.blog-article h2 {
+  font-size: 1.4rem;
+  color: #1e3a8a;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.blog-article h3 {
+  font-size: 1.2rem;
+  color: #1e3a8a;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.blog-article p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.blog-article ul {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.blog-article li {
+  margin-bottom: 8px;
+}
+
+.blog-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.related-posts {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.related-posts h2 {
+  font-size: 1.4rem;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+.related-posts ul {
+  list-style: none;
+  padding: 0;
+}
+
+.related-posts li {
+  margin-bottom: 10px;
+}
+
+.related-posts a {
+  color: #1e40af;
+  text-decoration: none;
+}
+
+.related-posts a:hover {
+  text-decoration: underline;
+}
+
+.blog-list {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 40px;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.blog-post {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px);
+}
+
+.blog-post h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.blog-post h2 a {
+  color: #1e40af;
+  text-decoration: none;
+}
+
+.blog-post h2 a:hover {
+  color: #0288d1;
+}
+
+.blog-post .blog-meta {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.blog-post p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.read-more {
+  display: inline-block;
+  color: #1e40af;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   header h1 {
 	font-size: 2rem;
@@ -419,7 +556,7 @@ main .back-link:hover {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .main-nav {
     display: none;
   }
